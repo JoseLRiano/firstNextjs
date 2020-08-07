@@ -1,18 +1,23 @@
-import React, { Component } from "react";
+// import React, { Component } from "react";
+import axios from 'axios';
+import { async } from 'q';
 
-class Index extends Component {
-    constructor(props){
-        super(props);
-    }
-    static async getInitialProps(){
-        return {res: console.log("FETCHING YOUR DATA INSINE GETINITIALPROPS!")};
-    }
-    render() {
-        return (  
-            <div>
-                <h1>Our Index page</h1>
-            </div>
-        );
-    }
-}
+const Index = ({ posts }) => {
+    return (
+        <>
+            <h1>Our Index Page!!</h1>
+            <ul>
+                {posts.map(post => (
+                    <li>{post.title}</li>
+                ))}
+            </ul>
+        </>
+    );
+};
+Index.getInitialProps = async () => {
+    const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    const { data } = res;
+    return { posts: data}
+};
+
 export default Index;
