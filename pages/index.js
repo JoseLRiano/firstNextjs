@@ -1,6 +1,6 @@
 // import React, { Component } from "react";
 import axios from 'axios';
-import { async } from 'q';
+import Link from 'next/link';
 
 const Index = ({ posts }) => {
     return (
@@ -8,7 +8,9 @@ const Index = ({ posts }) => {
             <h1>Our Index Page!!</h1>
             <ul>
                 {posts.map(post => (
-                    <li>{post.title}</li>
+                    <li key={post.id}>
+                        <Link href={`/post?id=${post.id}`} as={`/post/${post.id}`}><a>{post.title}</a></Link>
+                    </li>
                 ))}
             </ul>
         </>
